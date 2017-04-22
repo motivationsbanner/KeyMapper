@@ -17,6 +17,7 @@ public:
   
 	struct Key
     {
+		Key(): modifier(sf::Keyboard::Unknown) { };
 		InputType inputType;
     	sf::Event::EventType eventType;
 		sf::Keyboard::Key keyCode;

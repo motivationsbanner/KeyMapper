@@ -7,12 +7,12 @@
 
 KeyMapper::KeyMapper() 
 {
-	Key key;
 	// init Keys etc
-	key.inputType = MouseInput;
-	key.eventType = sf::Event::MouseButtonPressed;
-	key.mouseButton = sf::Mouse::Left;
-	this->Keys["Shoot"] = key; // this part is working
+	Key key;
+	key.inputType = KeyboardInput;
+	key.eventType = sf::Event::KeyPressed;
+	key.keyCode = sf::Keyboard::A;
+	this->Keys["Shoot"] = key;
 }
 
 KeyMapper::~KeyMapper()
@@ -23,11 +23,14 @@ KeyMapper::~KeyMapper()
 bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 {
 	Key k = this->Keys[key];
-
+	
+	auto modifier = k.modifier != sf::Keyboard::Unknown ? sf::Keyboard::isKeyPressed(k.modifier) : true;
+	 
 	// mouse event
 	if (k.inputType == MouseInput &&
 		k.eventType == e.type &&
-		k.mouseButton == e.mouseButton.button)
+		k.mouseButton == e.mouseButton.button && 
+		modifier == true)
 	{
 		return true;
 	}
@@ -35,7 +38,8 @@ bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 	// keyboard event
 	if (k.inputType == KeyboardInput &&
 		k.eventType == e.type &&
-		k.keyCode == e.key.code)
+		k.keyCode == e.key.code &&
+		modifier)
 	{
 		return true;
 	}
