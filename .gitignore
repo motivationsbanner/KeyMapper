@@ -1,0 +1,8 @@
+/bin
+*.dll
+*.rc
+*.exe
+*.res
+*.ico
+makefile
+*.txt
