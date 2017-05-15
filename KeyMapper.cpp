@@ -5,14 +5,24 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-KeyMapper::KeyMapper() 
+KeyMapper::KeyMapper()
 {
-	// init Keys etc
-	Key key;
-	key.inputType = KeyboardInput;
-	key.eventType = sf::Event::KeyPressed;
-	key.keyCode = sf::Keyboard::A;
-	this->Keys["Shoot"] = key;
+
+	FILE* config = fopen("KeyMapper.config", "r");
+	int eventType, inputType, keyCode, modifier;
+	char keyName[20];
+
+	while(fscanf(config, "%s %i, %i, %i, %i", &keyName, &eventType, &inputType, &keyCode, &modifier) == 5)
+	{
+		Key key;
+		key.eventType = (sf::Event::EventType) eventType;
+		key.inputType = (KeyMapper::InputType) inputType;
+		key.keyCode = (sf::Keyboard::Key) keyCode;
+		key.modifier = (sf::Keyboard::Key) modifier;
+
+		this->Keys[keyName] = key;
+	}	
+	fclose(config);
 }
 
 KeyMapper::~KeyMapper()
@@ -45,3 +55,4 @@ bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 	}
 	return false;
 }
+

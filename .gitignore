@@ -6,3 +6,5 @@
 *.ico
 makefile
 *.txt
+Debug/
+*.vcxproj*

@@ -23,6 +23,16 @@ int main()
 			
 			if (mapper->KeyPressed("Shoot", event))
 				std::cout << "Shoot" << std::endl;
+			if (mapper->KeyPressed("Up", event))
+				std::cout << "Up" << std::endl;
+			if (mapper->KeyPressed("Down", event))
+				std::cout << "Down" << std::endl;
+			if (mapper->KeyPressed("Left", event))
+				std::cout << "Left" << std::endl;
+			if (mapper->KeyPressed("Right", event))
+				std::cout << "Right" << std::endl;
+			if (mapper->KeyPressed("Exit", event))
+				return EXIT_SUCCESS;
         }
 		
         window.clear();
