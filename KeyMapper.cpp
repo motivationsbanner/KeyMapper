@@ -7,11 +7,11 @@
 
 KeyMapper::KeyMapper()
 {
-
 	FILE* config = fopen("KeyMapper.config", "r");
 	int eventType, inputType, keyCode, modifier;
 	char keyName[20];
 
+	/* Load from File and add to Keys Map */
 	while(fscanf(config, "%s %i, %i, %i, %i", &keyName, &eventType, &inputType, &keyCode, &modifier) == 5)
 	{
 		Key key;
@@ -22,21 +22,20 @@ KeyMapper::KeyMapper()
 
 		this->Keys[keyName] = key;
 	}	
+
 	fclose(config);
 }
 
-KeyMapper::~KeyMapper()
-{
-  // destroy stuff
-}
+KeyMapper::~KeyMapper() { }
 
 bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 {
 	Key k = this->Keys[key];
 	
+	/* sf::Keyboard::Unknown is the Default */
 	auto modifier = k.modifier != sf::Keyboard::Unknown ? sf::Keyboard::isKeyPressed(k.modifier) : true;
 	 
-	// mouse event
+	/* Handle Mouse Event */
 	if (k.inputType == MouseInput &&
 		k.eventType == e.type &&
 		k.mouseButton == e.mouseButton.button && 
@@ -45,7 +44,7 @@ bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 		return true;
 	}
 
-	// keyboard event
+	/* Handle Keyboard Event */
 	if (k.inputType == KeyboardInput &&
 		k.eventType == e.type &&
 		k.keyCode == e.key.code &&
@@ -53,6 +52,12 @@ bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 	{
 		return true;
 	}
+
+	return false;
+}
+
+bool KeyMapper::Save(std::string key, sf::Event e)
+{
 	return false;
 }
 

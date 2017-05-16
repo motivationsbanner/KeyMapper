@@ -5,14 +5,17 @@
 
 #include "KeyMapper.h"
 
+const int movement = 2;
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 	
+	/* Init the KeyMapper */
 	auto mapper = new KeyMapper();
-	
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -23,14 +26,39 @@ int main()
 			
 			if (mapper->KeyPressed("Shoot", event))
 				std::cout << "Shoot" << std::endl;
-			if (mapper->KeyPressed("Up", event))
-				std::cout << "Up" << std::endl;
+
+			if (mapper->KeyPressed("Up", event)) 
+			{
+				/* Go Up */
+				auto position = shape.getPosition();
+				position.y -= movement;
+				shape.setPosition(position);
+			}
+			
 			if (mapper->KeyPressed("Down", event))
-				std::cout << "Down" << std::endl;
+			{
+				/* Go Down */
+				auto position = shape.getPosition();
+				position.y += movement;
+				shape.setPosition(position);
+			}
+
 			if (mapper->KeyPressed("Left", event))
-				std::cout << "Left" << std::endl;
+			{
+				/* Go Left */
+				auto position = shape.getPosition();
+				position.x -= movement;
+				shape.setPosition(position);
+			}
+
 			if (mapper->KeyPressed("Right", event))
-				std::cout << "Right" << std::endl;
+			{
+				/* Go Right */
+				auto position = shape.getPosition();
+				position.x += movement;
+				shape.setPosition(position);
+			}
+
 			if (mapper->KeyPressed("Exit", event))
 				return EXIT_SUCCESS;
         }
