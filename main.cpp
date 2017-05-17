@@ -61,6 +61,8 @@ int main()
 
 			if (mapper->KeyPressed("Exit", event))
 				return EXIT_SUCCESS;
+
+			mapper->Save("Right", event);
         }
 		
         window.clear();

@@ -58,6 +58,61 @@ bool KeyMapper::KeyPressed(std::string key, sf::Event e)
 
 bool KeyMapper::Save(std::string key, sf::Event e)
 {
+	FILE* config = fopen("KeyMapper.config", "r+");
+
+	int eventType, inputType, keyCode, modifier;
+	char keyName[20];
+
+	/* Load from File and add to Keys Map */
+	while (fscanf(config, "%s %i, %i, %i, %i", &keyName, &eventType, &inputType, &keyCode, &modifier) == 5)
+	{
+		if (keyName == key)
+		{
+			/* Update Key */
+			Key updatedKey = this->Keys[key];
+
+			/* Check for MouseButton */
+			if (e.type == sf::Event::EventType::MouseButtonPressed)
+			{
+				updatedKey.eventType = e.type;
+				updatedKey.inputType = MouseInput;
+				updatedKey.mouseButton = e.mouseButton.button;
+			}
+
+			/* Check for KeyPressed*/
+			if (e.type == sf::Event::EventType::KeyPressed)
+			{
+				/* Ignore Modifier Keys */
+				if (e.key.code == sf::Keyboard::Key::LShift ||
+					e.key.code == sf::Keyboard::Key::LControl ||
+					e.key.code == sf::Keyboard::Key::LAlt) continue;
+
+				updatedKey.eventType = e.type;
+				updatedKey.inputType = KeyboardInput;
+				updatedKey.keyCode = e.key.code;
+
+				/* Set Modifier */
+				if (e.key.alt) updatedKey.modifier = sf::Keyboard::Key::LShift;
+				else if (e.key.control) updatedKey.modifier = sf::Keyboard::Key::LControl;
+				else if (e.key.alt) updatedKey.modifier = sf::Keyboard::Key::LAlt;
+			}
+
+			this->Keys[keyName] = updatedKey;
+
+			/* Update Setting File */
+		}
+	}
+	fclose(config);
+
 	return false;
 }
+
+
+/* 
+	Open Points:
+	
+	- Key is already bound to something
+	- How do I want to bind Modifier Keys
+
+*/
 
