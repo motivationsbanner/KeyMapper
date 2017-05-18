@@ -10,6 +10,21 @@
 /// </summary>
 class KeyMapper
 {	
+private:	
+	/// <summary>
+	/// The last Key pressed
+	/// </summary>
+	sf::Keyboard::Key lastKey = sf::Keyboard::Key::Unknown;
+	
+	/// <summary>
+	/// Determines whether the specified key is modifier.
+	/// </summary>
+	/// <param name="key">The key.</param>
+	/// <returns>
+	///   <c>true</c> if the specified key is a modifier; otherwise, <c>false</c>.
+	/// </returns>
+	bool IsModifier(sf::Keyboard::Key key);
+
 public: 
 	/// <summary>
 	/// InputType Enum
@@ -65,4 +80,9 @@ public:
 	/// <param name="e">The Event</param>
 	/// <returns>Result of the Save</returns>
 	bool Save(std::string key, sf::Event e);
+	
+	/// <summary>
+	/// Writes the Config File.
+	/// </summary>
+	void WriteFile();
 };
