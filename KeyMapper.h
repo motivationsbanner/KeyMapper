@@ -40,10 +40,10 @@ public:
 	/// Key Structure
 	/// </summary>
 	struct Key
-    {
+	{
 		Key(): modifier(sf::Keyboard::Unknown) { };
 		InputType inputType;
-    	sf::Event::EventType eventType;
+		sf::Event::EventType eventType;
 		sf::Keyboard::Key keyCode;
 		sf::Mouse::Button mouseButton;
 		sf::Keyboard::Key modifier;

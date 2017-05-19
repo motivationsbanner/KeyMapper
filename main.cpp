@@ -10,17 +10,17 @@ const int movement = 2;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
 	bool keybindMode = false;
 	/* Init the KeyMapper */
 	auto mapper = new KeyMapper();
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
 			if (!keybindMode)
 			{
 
@@ -79,12 +79,12 @@ int main()
 				return EXIT_SUCCESS;
 			}
 				
-        }
+		}
 		
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+		window.clear();
+		window.draw(shape);
+		window.display();
+	}
 
-    return 0;
+	return 0;
 };

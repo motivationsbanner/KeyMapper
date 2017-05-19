@@ -7,10 +7,10 @@
 
 bool KeyMapper::IsModifier(sf::Keyboard::Key key)
 {
-	return (key == sf::Keyboard::Key::LShift ||
+	 return (key == sf::Keyboard::Key::LShift ||
 		key == sf::Keyboard::Key::LControl ||
-		key == sf::Keyboard::Key::LAlt ||
-		key == sf::Keyboard::Key::RControl ||
+		   key == sf::Keyboard::Key::LAlt ||
+		key == sf::Keyboard::Key::RControl ||	
 		key == sf::Keyboard::Key::RShift ||
 		key == sf::Keyboard::Key::RAlt);
 }
