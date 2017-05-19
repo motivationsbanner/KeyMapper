@@ -12,16 +12,17 @@ int main()
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-    bool keybindMode = false;
+
     /* Init the KeyMapper */
     auto mapper = new KeyMapper();
+    mapper->GetKeys();
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (!keybindMode)
+            if (!mapper->GetBindMode())
             {
 
                 if (event.type == sf::Event::Closed)
@@ -64,18 +65,24 @@ int main()
 
                 if (event.key.code == sf::Keyboard::Key::Tab)
                 {
-                    keybindMode = true;
+                    mapper->Start();
                 }
             }
             else
             {
-                keybindMode = !mapper->Save("Right", event);
+                if (event.key.code == sf::Keyboard::Key::Tab)
+                    mapper->Discard();
+
+                if (!mapper->Save("Right", event))
+                    mapper->Apply();
+
+                if (!mapper->GetBindMode() && mapper->GetDuplicatedKeys())
+                    return EXIT_SUCCESS;
             }			
 
             if (mapper->KeyPressed("Exit", event))
             {
                 mapper->WriteFile();
-
                 return EXIT_SUCCESS;
             }
                 
